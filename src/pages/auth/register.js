@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../lib/firebase'; // Import the auth instance
+import { auth } from '../../lib/firebase'; 
 import { useRouter } from 'next/router';
 
 export default function Register() {
-  const [error, setError] = useState(null); // State to handle registration errors
+  const [error, setError] = useState(null);
   const { register, handleSubmit } = useForm();
   const router = useRouter();
 
@@ -25,19 +25,29 @@ export default function Register() {
   
 
   return (
-    <div>
+    <div className="login-page">
+      <div className="login-container">
       <h2>Register</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Email:</label>
-        <input type="email" {...register('email')} required />
 
-        <label>Password:</label>
-        <input type="password" {...register('password')} required />
+        <input type="text" {...register('name')} required placeholder='name' autoFocus />
+
+        <input type="email" {...register('email')} required placeholder='email' />
+
+        <input type="password" {...register('password')} required placeholder='password'/>
+
+        <input type="password" {...register('cpassword')} required placeholder='confirm password'/>
+
 
         <button type="submit">Register</button>
 
+         <p>
+            Already a user? <a href="/auth/login">Login</a>
+          </p>
+
         {error && <p style={{ color: 'red' }}>{error}</p>}
       </form>
+    </div>
     </div>
   );
 }

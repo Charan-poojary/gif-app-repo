@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../../lib/firebase'; // Import the auth instance
+import { auth } from '../../lib/firebase';
 
 export default function Login() {
   const [error, setError] = useState(null); 
@@ -23,19 +23,21 @@ export default function Login() {
   };
 
   return (
-    <div>
-      <h2>Login</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Email:</label>
-        <input type="email" {...register('email')} required />
+<div className="login-page">
+      <div className="login-container">
+        <h2>Login</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input type="email" {...register('email')} required placeholder='email' autoFocus/>
 
-        <label>Password:</label>
-        <input type="password" {...register('password')} required />
+          <input type="password" {...register('password')} required placeholder='password' />
 
-        <button type="submit">Login</button>
-
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-      </form>
+          <button type="submit">Login</button>
+          <p>
+            Are you a new user? <a href="/auth/register">Register</a>
+          </p>
+          {error && <p>{error}</p>}
+        </form>
+      </div>
     </div>
   );
 }
